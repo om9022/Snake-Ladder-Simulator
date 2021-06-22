@@ -12,10 +12,12 @@ public static void main(String[] args) {
 
 //	variable
 	int PlayerPosition = 0 ;
+	int DicePlayedTimes = 0;
 	
 //	EXPRESIONS
 	while( PlayerPosition < GOAL ) 
 	{
+		DicePlayedTimes ++;
 	
 		int DiceRoll = (int) (Math.floor(Math.random() * 10 ) % 6) + 1 ;
 		int PlayerOption = (int) Math.floor(Math.random() * 10 ) % 3 ;
@@ -27,6 +29,9 @@ public static void main(String[] args) {
 		{
 		
 		case LADDER :
+			System.out.println("Player choose Ladder");
+			
+
 			if (( PlayerPosition + DiceRoll ) <= GOAL)
 			{
 			PlayerPosition = PlayerPosition + DiceRoll;
@@ -34,6 +39,7 @@ public static void main(String[] args) {
 			break;
 			
 		case SNAKE :		
+			System.out.println("Player choose Snake");
 			
 			if ( ( PlayerPosition - DiceRoll ) <= START_POSITION )
 			{
@@ -46,10 +52,12 @@ public static void main(String[] args) {
 			break;
 	
 		default:
+			System.out.println("Player choose no play");
 			
 			break;
 		}
 		System.out.println("Player Position " + PlayerPosition + "\n --------");
 	}
+	System.out.println("The number of times Played "+ DicePlayedTimes);
  }
 }
