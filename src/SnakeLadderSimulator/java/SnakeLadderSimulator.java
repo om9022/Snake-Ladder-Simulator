@@ -8,27 +8,45 @@ public static void main(String[] args) {
 	final int NO_PLAY = 0;
 	final int LADDER = 1;
 	final int SNAKE = 2;
+	final int GOAL = 100;
 	
 //	variable
 	int PlayerPosition = 0;
 	
-//	CALCULATIONS
-	int DiceRoll = (int) (Math.floor(Math.random() * 10 ) % 6) +1;
-	int PlayerOption = (int) Math.floor(Math.random() * 10 ) % 3;
-	
-	switch ( PlayerOption) {
-	case LADDER :
-		PlayerPosition = PlayerPosition + DiceRoll;
-		break;
-	case SNAKE :
-		PlayerPosition = PlayerPosition - DiceRoll;
-		break;
+//	CALCULATION
+	while(PlayerPosition <= GOAL)
+	{
 		
-	default :
+		int DiceRoll = (int) (Math.floor(Math.random() * 10 ) % 6) +1;
+		int PlayerOption = (int) Math.floor(Math.random() * 10 ) % 3;
 		
-		break;
-	
+		
+		System.out.println("Dice value "+ DiceRoll);
+		System.out.println("PlayerOption" + PlayerOption );
+
+		switch ( PlayerOption) {
+		case LADDER :
+			PlayerPosition = PlayerPosition + DiceRoll;
+			break;
+		case SNAKE :
+			if ((PlayerPosition -DiceRoll) <= START_POSITION )
+			{
+				PlayerPosition = START_POSITION;
+			}
+			else
+			{
+				PlayerPosition = PlayerPosition - DiceRoll;
+			}
+			break;
+			
+		default :
+			
+			break;
+		
+		}
+		System.out.println("Player Position" +PlayerPosition + "\n ---------");
 	}
+
 	}
 
 }
