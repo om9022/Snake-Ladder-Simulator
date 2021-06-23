@@ -1,63 +1,110 @@
 package SnakeLadderSimulator.java;
 
 public class SnakeLadderSimulator {
-public static void main(String[] args) {
-	System.out.println( "WelCome To Snake Ladder Simulator" );
+
 //	CONSTANTS
-	int START_POSITION = 0;
-	final int NO_PLAY = 0 ;
-	final int LADDER = 1 ;	
-	final int SNAKE = 2 ;
-	final int GOAL = 100 ;
+	public static final int START_POSITION = 0;
+	public static final int LADDER = 1 ;	
+	public static final int SNAKE = 2 ;
+	public static final int GOAL = 100 ;
 
-//	variable
-	int PlayerPosition = 0 ;
-	int DicePlayedTimes = 0;
-	
-//	EXPRESIONS
-	while( PlayerPosition < GOAL ) 
+	public static void main(String[] args)
 	{
-		DicePlayedTimes ++;
-	
-		int DiceRoll = (int) (Math.floor(Math.random() * 10 ) % 6) + 1 ;
-		int PlayerOption = (int) Math.floor(Math.random() * 10 ) % 3 ;
-		
-		System.out.println("Dice value " + DiceRoll);
-		System.out.println( "Player option " + PlayerOption);
-		
-		switch ( PlayerOption )
-		{
-		
-		case LADDER :
-			System.out.println("Player choose Ladder");
-			
+		System.out.println( "WelCome To Snake Ladder Simulator" );
 
-			if (( PlayerPosition + DiceRoll ) <= GOAL)
+		//	VARIABLES
+		boolean player1playing = true ;
+		int Player1Position = 0 ;
+		int Player2Position = 0 ;
+		int DicePlayedTimes = 0 ;
+		int PlayerPosition = 0 ;
+
+		while( Player1Position < GOAL && Player2Position < GOAL ) 
+		{
+//			WHICH PLAYER IS PLAYING
+			if (player1playing)
 			{
-			PlayerPosition = PlayerPosition + DiceRoll;
-			}
-			break;
-			
-		case SNAKE :		
-			System.out.println("Player choose Snake");
-			
-			if ( ( PlayerPosition - DiceRoll ) <= START_POSITION )
-			{
-				PlayerPosition = START_POSITION ;
+				System.out.println( "Player 1 Playing  " );
+				System.out.println( "Player 1 Position "+Player1Position );
+				PlayerPosition = Player1Position;
 			}
 			else
-			{				
-				PlayerPosition = PlayerPosition - DiceRoll ;
+			{
+				System.out.println( "Player 2 Playing  " );
+				System.out.println( "Player 2 Position "+Player2Position );
+				PlayerPosition = Player2Position;
 			}
-			break;
-	
-		default:
-			System.out.println("Player choose no play");
+
+//			CONDITION FOR ROLLING THE DICE TO GET NUMBER BETWEEN 1-6
+			int DiceRoll = (int) (Math.floor(Math.random() * 10 ) % 6) + 1 ;
+			System.out.println("Dice value " + DiceRoll);
+			DicePlayedTimes++ ;
+
+//			CONDITION TO CHECK WHICH OPTION PLAYER CHOOSE
+			int PlayerOption = (int) Math.floor(Math.random() * 10 ) % 3 ;
+
+
+			switch ( PlayerOption )
+			{
+
+			case LADDER :
+
+				System.out.println( "Player Choose Ladder  " );
+
+				if ( ( PlayerPosition + DiceRoll ) <= GOAL )
+				{				
+
+					PlayerPosition = PlayerPosition + DiceRoll;
+				}
+
+				break;
+
+			case SNAKE :		
+				System.out.println( "Player Choose Snake  " );
+
+				if ( ( PlayerPosition - DiceRoll ) <= START_POSITION )
+				{
+					PlayerPosition = START_POSITION ;
+				}
+				else
+				{				
+					PlayerPosition = PlayerPosition - DiceRoll ;
+				}
+
+				break;
+
+			default:
+				System.out.println( "Player Choose No Play  " );
+				break;
+			}
+
+			if (player1playing)
+			{
+				Player1Position = PlayerPosition;
+				System.out.println( "Player 1 new Position "+Player1Position );
+			}
+			else
+			{
+				Player2Position = PlayerPosition;
+				System.out.println( "Player 2 new Position "+Player2Position );
+			}
 			
-			break;
+			if (PlayerOption != LADDER) 
+			{
+				player1playing = !(player1playing);
+			}
+					System.out.println("\n --------");
 		}
-		System.out.println("Player Position " + PlayerPosition + "\n --------");
-	}
-	System.out.println("The number of times Played "+ DicePlayedTimes);
- }
+
+		System.out.println("The Number Of times Dice Rolled "+ DicePlayedTimes  );
+		
+		if (Player1Position == GOAL) 
+		{
+			System.out.println("Player 1 Won The Game");
+		}
+		else 
+		{			
+			System.out.println("Player 2 Won The Game");
+		}
+}
 }
